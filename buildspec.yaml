@@ -1,0 +1,27 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.8
+    commands:
+      - echo Configuring AWS CLI...
+      # No AWS credentials should be included here.
+
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR Public...
+      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/u4i0c1o5
+
+  build:
+    commands:
+      - echo Build started on date
+      - echo Building the Docker image...
+      - docker build -t housing_price:latest .
+      - docker tag housing_price:latest public.ecr.aws/u4i0c1o5/housing_price:latest     
+
+  post_build:
+    commands:
+      - echo Build completed on date
+      - echo Pushing the Docker image...
+      - docker push public.ecr.aws/u4i0c1o5/housing_price:latest

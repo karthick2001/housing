@@ -6,6 +6,7 @@ phases:
       python: 3.7
     commands:
       - echo Configuring AWS CLI...
+      # No AWS credentials should be included here.
 
   pre_build:
     commands:

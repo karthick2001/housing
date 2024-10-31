@@ -6,7 +6,6 @@ phases:
       python: 3.7
     commands:
       - echo Configuring AWS CLI...
-      # No AWS credentials should be included here.
 
   pre_build:
     commands:
@@ -25,3 +24,8 @@ phases:
       - echo Build completed on date
       - echo Pushing the Docker image...
       - docker push public.ecr.aws/u4i0c1o5/housing_price:latest
+
+artifacts:
+  files:
+    - '**/*' # Include all necessary files here, such as build outputs
+  discard-paths: yes

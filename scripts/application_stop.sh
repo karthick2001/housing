@@ -1,7 +1,10 @@
 #!/bin/bash
 
-echo "This script stops running Docker containers, removes them, and deletes Docker images."
+echo "Stopping running Docker containers..."
+docker ps -q | xargs -r docker stop
 
-sudo docker stop $(sudo docker ps -q)
-sudo docker rm $(sudo docker ps -a -q)
-sudo docker rmi $(sudo docker images -q)
+echo "Removing stopped Docker containers..."
+docker ps -a -q | xargs -r docker rm
+
+echo "Removing Docker images..."
+docker images -q | xargs -r docker rmi
